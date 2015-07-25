@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstraintHelperExample", "ConstraintHelperExample.csproj", "{A7F109F7-8AB9-4CDF-BA0F-2273444227C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstraintHelper", "..\ConstraintHelper\ConstraintHelper.csproj", "{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7F109F7-8AB9-4CDF-BA0F-2273444227C4}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{A7F109F7-8AB9-4CDF-BA0F-2273444227C4}.Debug|iPhone.Build.0 = Debug|iPhone
+		{A7F109F7-8AB9-4CDF-BA0F-2273444227C4}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{A7F109F7-8AB9-4CDF-BA0F-2273444227C4}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{A7F109F7-8AB9-4CDF-BA0F-2273444227C4}.Release|iPhone.ActiveCfg = Release|iPhone
+		{A7F109F7-8AB9-4CDF-BA0F-2273444227C4}.Release|iPhone.Build.0 = Release|iPhone
+		{A7F109F7-8AB9-4CDF-BA0F-2273444227C4}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{A7F109F7-8AB9-4CDF-BA0F-2273444227C4}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}.Release|iPhone.Build.0 = Release|Any CPU
+		{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
