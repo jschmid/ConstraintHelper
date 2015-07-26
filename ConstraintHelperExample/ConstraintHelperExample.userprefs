@@ -1,8 +1,15 @@
 ﻿<Properties StartupItem="ConstraintHelperExample.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone5s.8.4" />
   <MonoDevelop.Ide.Workbench ActiveDocument="AppDelegate.cs">
     <Files>
-      <File FileName="AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="../../../../../Users/Semiotikus/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/BF224707-307F-403E-A1EF-03DDE67210D5/LayoutHelper.cs" Line="170" Column="7" />
+      <File FileName="AppDelegate.cs" Line="7" Column="34" />
+      <File FileName="../ConstraintHelper/ConstraintHelper.cs" Line="364" Column="4" />
+      <File FileName="../ConstraintHelper/ConstraintContainer.cs" Line="104" Column="30" />
+      <File FileName="../ConstraintHelper/Exception/DoubleConstraintException.cs" Line="11" Column="1" />
+      <File FileName="../ConstraintHelper/Exception/UnattachedViewException.cs" Line="5" Column="41" />
+      <File FileName="ViewControllers/Home.cs" Line="20" Column="88" />
+      <File FileName="ViewControllers/Base.cs" Line="21" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

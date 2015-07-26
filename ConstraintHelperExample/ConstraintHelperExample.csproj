@@ -79,6 +79,8 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="ViewControllers\Base.cs" />
+    <Compile Include="ViewControllers\Home.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -86,5 +88,8 @@
       <Project>{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}</Project>
       <Name>ConstraintHelper</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewControllers\" />
   </ItemGroup>
 </Project>

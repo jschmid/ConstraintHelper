@@ -21,7 +21,9 @@ namespace ConstraintHelperExample
 			Window = new UIWindow (UIScreen.MainScreen.Bounds);
 
 			// If you have defined a root view controller, set it here:
-			// Window.RootViewController = myViewController;
+			Window.RootViewController = new UINavigationController(
+				new ViewControllers.Home()
+			);
 
 			// make the window visible
 			Window.MakeKeyAndVisible ();
