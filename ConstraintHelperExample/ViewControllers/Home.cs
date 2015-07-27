@@ -17,11 +17,21 @@ namespace ConstraintHelperExample.ViewControllers
 
 			Title = "Examples";
 
-			_buttonSizing = new AutoRoundButton("Sizing") { BackgroundColor = UIColor.FromRGB(210, 210, 210) };
-			_buttonPositioning = new AutoRoundButton("Positioning") { BackgroundColor = UIColor.FromRGB(180, 180, 180) };
-			_buttonStacking = new AutoRoundButton("Stacking") { BackgroundColor = UIColor.FromRGB(150, 150, 150) };
-			_buttonMargin = new AutoRoundButton("Margin") { BackgroundColor = UIColor.FromRGB(120, 120, 120) };
-			_buttonAnimation = new AutoRoundButton("Animation") { BackgroundColor = UIColor.FromRGB(90, 90, 90) };
+			_buttonSizing = new AutoRoundButton("Sizing") { 
+				BackgroundColor = UIColor.FromRGB(210, 210, 210) 
+			};
+			_buttonPositioning = new AutoRoundButton("Positioning") { 
+				BackgroundColor = UIColor.FromRGB(180, 180, 180) 
+			};
+			_buttonStacking = new AutoRoundButton("Stacking") { 
+				BackgroundColor = UIColor.FromRGB(150, 150, 150) 
+			};
+			_buttonMargin = new AutoRoundButton("Margin") { 
+				BackgroundColor = UIColor.FromRGB(120, 120, 120) 
+			};
+			_buttonAnimation = new AutoRoundButton("Animation") { 
+				BackgroundColor = UIColor.FromRGB(90, 90, 90) 
+			};
 
 			ConstraintHelper
 
@@ -74,7 +84,7 @@ namespace ConstraintHelperExample.ViewControllers
 
 		void HandleButtonStacking(object sender, EventArgs e)
 		{
-			NavigationController.PushViewController(new Base(), true);
+			NavigationController.PushViewController(new Stacking(), true);
 		}
 
 		void HandleButtonMargin(object sender, EventArgs e)

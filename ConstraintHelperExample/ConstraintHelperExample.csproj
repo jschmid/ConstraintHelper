@@ -84,6 +84,7 @@
     <Compile Include="ViewControllers\Sizing.cs" />
     <Compile Include="ViewControllers\Positioning.cs" />
     <Compile Include="AutoRoundButton.cs" />
+    <Compile Include="ViewControllers\Stacking.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
