@@ -29,7 +29,6 @@ namespace SemiRoot.MonoTouchHelpers
 		public ConstraintHelper(UIView parentView)
 		{
 			_view = parentView;
-			//_view.TranslatesAutoresizingMaskIntoConstraints = false;
 			_items = new List<ConstraintContainer>();
 		}
 
@@ -413,7 +412,7 @@ namespace SemiRoot.MonoTouchHelpers
 			return this;
 		}
 
-		public ConstraintHelper Middel(float yOffset = 0)
+		public ConstraintHelper Middle(float yOffset = 0)
 		{
 			_currentItem.ConstraintMiddle = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.CenterY, 
@@ -511,7 +510,4 @@ namespace SemiRoot.MonoTouchHelpers
 
 		#endregion
 	}
-
-
 }
-

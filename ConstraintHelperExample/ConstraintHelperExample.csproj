@@ -81,6 +81,9 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="ViewControllers\Base.cs" />
     <Compile Include="ViewControllers\Home.cs" />
+    <Compile Include="ViewControllers\Sizing.cs" />
+    <Compile Include="ViewControllers\Positioning.cs" />
+    <Compile Include="AutoRoundButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

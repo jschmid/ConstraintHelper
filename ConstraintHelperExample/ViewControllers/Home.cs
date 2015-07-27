@@ -17,32 +17,28 @@ namespace ConstraintHelperExample.ViewControllers
 
 			Title = "Examples";
 
-			_buttonSizing = new UIButton() { BackgroundColor = UIColor.FromRGB(210, 210, 210) };
-			_buttonSizing.SetTitle("Sizing", UIControlState.Normal);
-
-			_buttonPositioning = new UIButton() { BackgroundColor = UIColor.FromRGB(180, 180, 180) };
-			_buttonPositioning.SetTitle("Positioning", UIControlState.Normal);
-
-			_buttonStacking = new UIButton() { BackgroundColor = UIColor.FromRGB(150, 150, 150) };
-			_buttonStacking.SetTitle("Stacking", UIControlState.Normal);
-
-			_buttonMargin = new UIButton() { BackgroundColor = UIColor.FromRGB(120, 120, 120) };
-			_buttonMargin.SetTitle("Margin", UIControlState.Normal);
-
-			_buttonAnimation = new UIButton() { BackgroundColor = UIColor.FromRGB(90, 90, 90) };
-			_buttonAnimation.SetTitle("Animation", UIControlState.Normal);
+			_buttonSizing = new AutoRoundButton("Sizing") { BackgroundColor = UIColor.FromRGB(210, 210, 210) };
+			_buttonPositioning = new AutoRoundButton("Positioning") { BackgroundColor = UIColor.FromRGB(180, 180, 180) };
+			_buttonStacking = new AutoRoundButton("Stacking") { BackgroundColor = UIColor.FromRGB(150, 150, 150) };
+			_buttonMargin = new AutoRoundButton("Margin") { BackgroundColor = UIColor.FromRGB(120, 120, 120) };
+			_buttonAnimation = new AutoRoundButton("Animation") { BackgroundColor = UIColor.FromRGB(90, 90, 90) };
 
 			ConstraintHelper
+
 				.Attach(_buttonSizing)
-					.Top().Left().Height(60).Width(120)
+					.Top(5f).Center(-50f).HeightFromWidth()
+
 				.Attach(_buttonPositioning)
-					.Top().LeftOf(_buttonSizing).Right().Height(60).StackTop()
+					.Top(5f).Center(50f).HeightFromWidth().StackTop()
+
 				.Attach(_buttonStacking)
-					.Top().Left().WidthOfParent(0.3333f).HeightFromWidth().StackLeft()
+					.Top(-32).Center(-42).HeightFromWidth()
+
 				.Attach(_buttonMargin)
-					.Top().Left().WidthOf(_buttonStacking).HeightFromWidth().StackLeft()
+					.Top(10f).Center(42f).HeightFromWidth().StackTop()
+
 				.Attach(_buttonAnimation)
-					.Top().LeftOf(_buttonMargin).Right().HeightOf(_buttonMargin).StackTop().ResetLeftStack();
+					.Top(-18).Center(-25f).HeightFromWidth().StackTop();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -68,12 +64,12 @@ namespace ConstraintHelperExample.ViewControllers
 
 		void HandleButtonSizing(object sender, EventArgs e)
 		{
-			NavigationController.PushViewController(new Base(), true);
+			NavigationController.PushViewController(new Sizing(), true);
 		}
 
 		void HandleButtonPositioning(object sender, EventArgs e)
 		{
-			NavigationController.PushViewController(new Base(), true);
+			NavigationController.PushViewController(new Positioning(), true);
 		}
 
 		void HandleButtonStacking(object sender, EventArgs e)

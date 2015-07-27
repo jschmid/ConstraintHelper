@@ -1,8 +1,9 @@
 ﻿<Properties StartupItem="ConstraintHelper.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Properties/AssemblyInfo.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ConstraintHelper.cs">
     <Files>
-      <File FileName="Properties/AssemblyInfo.cs" Line="28" Column="1" />
+      <File FileName="ConstraintContainer.cs" Line="48" Column="3" />
+      <File FileName="ConstraintHelper.cs" Line="190" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
