@@ -89,7 +89,7 @@ namespace ConstraintHelperExample.ViewControllers
 
 		void HandleButtonMargin(object sender, EventArgs e)
 		{
-			NavigationController.PushViewController(new Base(), true);
+			NavigationController.PushViewController(new Margin(), true);
 		}
 
 		void HandleButtonAnimation(object sender, EventArgs e)
