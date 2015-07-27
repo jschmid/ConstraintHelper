@@ -246,7 +246,7 @@ namespace SemiRoot.MonoTouchHelpers
 					_currentItem.View, NSLayoutAttribute.Left, 
 					NSLayoutRelation.Equal, 
 					_view, NSLayoutAttribute.Left, 
-					1f, 0 - _currentItem.MarginLeft
+					1f, _currentItem.MarginLeft
 				);
 				_view.AddConstraint(_currentItem.ConstraintLeft);
 			}
@@ -292,44 +292,44 @@ namespace SemiRoot.MonoTouchHelpers
 			return this;
 		}
 
-		public ConstraintHelper WidthOf(UIView view, float multiplier = 1)
+		public ConstraintHelper WidthOf(UIView view, float multiplier = 1, float modifier = 0)
 		{
 			ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
 			if (item == null) { throw new UnattachedViewException(); }
 			return WidthOf(item, multiplier);	
 		}
 
-		public ConstraintHelper WidthOf(ConstraintContainer container, float multiplier = 1)
+		public ConstraintHelper WidthOf(ConstraintContainer container, float multiplier = 1, float modifier = 0)
 		{
 			_currentItem.ConstraintWidth = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.Width, 
 				NSLayoutRelation.Equal, 
 				container.View, NSLayoutAttribute.Width, 
-				multiplier, 0f
+				multiplier, modifier
 			);
 			_view.AddConstraint(_currentItem.ConstraintWidth);
 			return this;
 		}
 
-		public ConstraintHelper WidthOfParent(float multiplier = 1)
+		public ConstraintHelper WidthOfParent(float multiplier = 1, float modifier = 0)
 		{
 			_currentItem.ConstraintWidth = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.Width, 
 				NSLayoutRelation.Equal, 
 				_view, NSLayoutAttribute.Width, 
-				multiplier, 0f
+				multiplier, modifier
 			);
 			_view.AddConstraint(_currentItem.ConstraintWidth);
 			return this;
 		}
 
-		public ConstraintHelper WidthFromHeight(float multiplier = 1)
+		public ConstraintHelper WidthFromHeight(float multiplier = 1, float modifier = 0)
 		{
 			_currentItem.ConstraintWidth = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.Width, 
 				NSLayoutRelation.Equal, 
 				_currentItem.View, NSLayoutAttribute.Height, 
-				multiplier, 0f
+				multiplier, modifier
 			);
 			_view.AddConstraint(_currentItem.ConstraintWidth);
 			return this;
@@ -352,44 +352,44 @@ namespace SemiRoot.MonoTouchHelpers
 			return this;
 		}
 
-		public ConstraintHelper HeightOf(UIView view, float multiplier = 1)
+		public ConstraintHelper HeightOf(UIView view, float multiplier = 1, float modifier = 0)
 		{
 			ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
 			if (item == null) { throw new UnattachedViewException(); }
 			return HeightOf(item, multiplier);
 		}
 
-		public ConstraintHelper HeightOf(ConstraintContainer container, float multiplier = 1)
+		public ConstraintHelper HeightOf(ConstraintContainer container, float multiplier = 1, float modifier = 0)
 		{
 			_currentItem.ConstraintHeight = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.Height, 
 				NSLayoutRelation.Equal, 
 				container.View, NSLayoutAttribute.Height, 
-				multiplier, 0f
+				multiplier, modifier
 			);
 			_view.AddConstraint(_currentItem.ConstraintHeight);
 			return this;
 		}
 
-		public ConstraintHelper HeightOfParent(float multiplier = 1)
+		public ConstraintHelper HeightOfParent(float multiplier = 1, float modifier = 0)
 		{
 			_currentItem.ConstraintHeight = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.Height, 
 				NSLayoutRelation.Equal, 
 				_view, NSLayoutAttribute.Height, 
-				multiplier, 0f
+				multiplier, modifier
 			);
 			_view.AddConstraint(_currentItem.ConstraintHeight);
 			return this;
 		}
 
-		public ConstraintHelper HeightFromWidth(float multiplier = 1) 
+		public ConstraintHelper HeightFromWidth(float multiplier = 1, float modifier = 0) 
 		{
 			_currentItem.ConstraintHeight = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.Height, 
 				NSLayoutRelation.Equal, 
 				_currentItem.View, NSLayoutAttribute.Width, 
-				multiplier, 0f
+				multiplier, modifier
 			);
 			_view.AddConstraint(_currentItem.ConstraintHeight);
 			return this;
@@ -400,25 +400,25 @@ namespace SemiRoot.MonoTouchHelpers
 
 		#region Positioning XY functionalities
 
-		public ConstraintHelper Center(float xOffset = 0)
+		public ConstraintHelper Center(float modifier = 0)
 		{
 			_currentItem.ConstraintCenter = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.CenterX, 
 				NSLayoutRelation.Equal, 
 				_view, NSLayoutAttribute.CenterX, 
-				1.0f, xOffset
+				1.0f, modifier
 			);
 			_view.AddConstraint(_currentItem.ConstraintCenter);
 			return this;
 		}
 
-		public ConstraintHelper Middle(float yOffset = 0)
+		public ConstraintHelper Middle(float modifier = 0)
 		{
 			_currentItem.ConstraintMiddle = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.CenterY, 
 				NSLayoutRelation.Equal, 
 				_view, NSLayoutAttribute.CenterY, 
-				1.0f, yOffset
+				1.0f, modifier
 			);
 			_view.AddConstraint(_currentItem.ConstraintMiddle);
 			return this;
