@@ -94,7 +94,7 @@ namespace ConstraintHelperExample.ViewControllers
 
 		void HandleButtonAnimation(object sender, EventArgs e)
 		{
-			NavigationController.PushViewController(new Base(), true);
+			NavigationController.PushViewController(new Animation(), true);
 		}
 	}
 }
