@@ -61,8 +61,8 @@ namespace SemiRoot.MonoTouchHelpers
 			if (_currentItem == null) { throw new UnattachedViewException(); }
 			var constraints = _currentItem.GetAllConstraints();
 			if(constraints.Count > 0) {
-				_currentItem.EmptyConstraints();
 				_view.RemoveConstraints(constraints.ToArray());
+				_currentItem.EmptyConstraints();
 			}
 			_currentItem.View.RemoveFromSuperview();
 			_items.Remove(_currentItem);
@@ -75,8 +75,8 @@ namespace SemiRoot.MonoTouchHelpers
 			foreach (var item in _items) {
 				var constraints = item.GetAllConstraints();
 				if (constraints.Count > 0) {
-					item.EmptyConstraints();
 					_view.RemoveConstraints(constraints.ToArray());
+					item.EmptyConstraints();
 				}
 				item.View.RemoveFromSuperview();
 			}
@@ -424,6 +424,101 @@ namespace SemiRoot.MonoTouchHelpers
 			return this;
 		}
 
+		#endregion
+
+
+		#region Constraint Removal functionalities
+
+
+		public ConstraintHelper UpdateConstraints()
+		{
+			_view.LayoutIfNeeded();
+			return this;
+		}
+
+		public ConstraintHelper RemoveAllConstraints()
+		{
+			var constraints = _currentItem.GetAllConstraints();
+			if(constraints.Count > 0) {
+				_view.RemoveConstraints(constraints.ToArray());
+				_currentItem.EmptyConstraints();
+			}
+			return this;
+		}
+
+		public ConstraintHelper RemoveTopConstraint()
+		{
+			if(_currentItem.ConstraintTop != null) {
+				_view.RemoveConstraint(_currentItem.ConstraintTop);
+				_currentItem.ConstraintTop = null;
+			}
+			return this;
+		}
+
+		public ConstraintHelper RemoveRightConstraint()
+		{
+			if(_currentItem.ConstraintRight != null) {
+				_view.RemoveConstraint(_currentItem.ConstraintRight);
+				_currentItem.ConstraintRight = null;
+			}
+			return this;
+		}
+
+
+		public ConstraintHelper RemoveBottomConstraint()
+		{
+			if(_currentItem.ConstraintBottom != null) {
+				_view.RemoveConstraint(_currentItem.ConstraintBottom);
+				_currentItem.ConstraintBottom = null;
+			}
+			return this;
+		}
+
+
+		public ConstraintHelper RemoveLeftConstraint()
+		{
+			if(_currentItem.ConstraintLeft != null) {
+				_view.RemoveConstraint(_currentItem.ConstraintLeft);
+				_currentItem.ConstraintLeft = null;
+			}
+			return this;
+		}
+
+		public ConstraintHelper RemoveCenterConstraint()
+		{
+			if(_currentItem.ConstraintCenter != null) {
+				_view.RemoveConstraint(_currentItem.ConstraintCenter);
+				_currentItem.ConstraintCenter = null;
+			}
+			return this;
+		}
+
+		public ConstraintHelper RemoveMiddleConstraint()
+		{
+			if(_currentItem.ConstraintMiddle != null) {
+				_view.RemoveConstraint(_currentItem.ConstraintMiddle);
+				_currentItem.ConstraintMiddle = null;
+			}
+			return this;
+		}
+
+		public ConstraintHelper RemoveHeightConstraint()
+		{
+			if(_currentItem.ConstraintHeight != null) {
+				_view.RemoveConstraint(_currentItem.ConstraintHeight);
+				_currentItem.ConstraintHeight = null;
+			}
+			return this;
+		}
+
+		public ConstraintHelper RemoveWidthConstraint()
+		{
+			if(_currentItem.ConstraintWidth != null) {
+				_view.RemoveConstraint(_currentItem.ConstraintWidth);
+				_currentItem.ConstraintWidth = null;
+			}
+			return this;
+		}
 		#endregion
 
 
