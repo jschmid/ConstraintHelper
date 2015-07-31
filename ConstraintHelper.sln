@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstraintHelper", "ConstraintHelper.csproj", "{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstraintHelper", "ConstraintHelper\ConstraintHelper.csproj", "{B96E6FC3-F2D7-403B-8CF4-002CAD3E3BBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
