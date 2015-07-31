@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SemiRoot.MonoTouchHelpers
+namespace SR.MonoTouchHelpers
 {
 	public class UnattachedViewException : Exception
 	{

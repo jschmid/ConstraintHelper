@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using UIKit;
 
-namespace SemiRoot.MonoTouchHelpers
+namespace SR.MonoTouchHelpers
 {
 	public class ConstraintContainer
 	{

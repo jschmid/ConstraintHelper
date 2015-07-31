@@ -2,7 +2,7 @@
 
 using UIKit;
 
-using SemiRoot.MonoTouchHelpers;
+using SR.MonoTouchHelpers;
 
 namespace ConstraintHelperExample.ViewControllers
 {

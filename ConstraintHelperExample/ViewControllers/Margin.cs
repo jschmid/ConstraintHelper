@@ -1,7 +1,7 @@
 ﻿using System;
 using UIKit;
 
-using SemiRoot.MonoTouchHelpers;
+using SR.MonoTouchHelpers;
 
 namespace ConstraintHelperExample.ViewControllers
 {
@@ -99,9 +99,7 @@ namespace ConstraintHelperExample.ViewControllers
 					.Height(45f)
 					// make it a habit of pinning the last element to the bottom
 					// if the parents height is not predefined (specialy if you use scroll views!)
-					.Bottom() 
-
-				;
+					.Bottom();
 		}
 	}
 }

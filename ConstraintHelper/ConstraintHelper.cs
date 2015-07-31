@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using UIKit;
 
-namespace SemiRoot.MonoTouchHelpers
+namespace SR.MonoTouchHelpers
 {
 	public class ConstraintHelper
 	{
@@ -433,6 +433,9 @@ namespace SemiRoot.MonoTouchHelpers
 		public ConstraintHelper UpdateConstraints()
 		{
 			_view.LayoutIfNeeded();
+      foreach(var item in _items) {
+        item.View.LayoutIfNeeded();
+      }
 			return this;
 		}
 
