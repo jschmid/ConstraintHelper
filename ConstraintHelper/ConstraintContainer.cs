@@ -19,6 +19,7 @@ namespace SR.MonoTouchHelpers
 		public ConstraintContainer(UIView view)
 		{
 			View = view;
+      Margin = new ConstraintMargin();
 		}
 
 		#endregion
@@ -26,10 +27,7 @@ namespace SR.MonoTouchHelpers
 
 		#region Attributes Margin
 
-		public float MarginTop { get; set; }
-		public float MarginRight { get; set; }
-		public float MarginBottom { get; set; }
-		public float MarginLeft { get; set; }
+    public ConstraintMargin Margin { get; set; }
 
 		#endregion
 

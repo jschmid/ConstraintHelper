@@ -37,9 +37,11 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConstraintHelper.cs" />
-    <Compile Include="ConstraintContainer.cs" />
     <Compile Include="Exception\DoubleConstraintException.cs" />
     <Compile Include="Exception\UnattachedViewException.cs" />
+    <Compile Include="IConstraintHelpedView.cs" />
+    <Compile Include="ConstraintMargin.cs" />
+    <Compile Include="ConstraintContainer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

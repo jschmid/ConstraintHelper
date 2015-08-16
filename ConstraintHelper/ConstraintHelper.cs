@@ -10,6 +10,7 @@ namespace SR.MonoTouchHelpers
 	{
 		#region Fields
 
+    // the view this instance uses for appending elements
 		readonly UIView _view;
 
 		ConstraintContainer _lastTop;
@@ -26,6 +27,10 @@ namespace SR.MonoTouchHelpers
 
 		#region Lifecycle
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SR.MonoTouchHelpers.ConstraintHelper"/> class.
+    /// </summary>
+    /// <param name="parentView">Parent view.</param>
 		public ConstraintHelper(UIView parentView)
 		{
 			_view = parentView;
@@ -37,18 +42,32 @@ namespace SR.MonoTouchHelpers
 
 		#region Attaching functionalities
 
+    /// <summary>
+    /// Adds the given view as a subview and the given view as current view to work with
+    /// </summary>
+    /// <returns>ConstraintHelper</returns>
+    /// <param name="view">View.</param>
 		public ConstraintHelper Attach(UIView view)
 		{
 			_currentItem = _items.FirstOrDefault(items => (items.View == view));
 			if (_currentItem == null) { 
 				view.TranslatesAutoresizingMaskIntoConstraints = false;
 				_currentItem = new ConstraintContainer(view);
+        if(view is IConstraintHelpedView) {
+          _currentItem.Margin = ((IConstraintHelpedView)view).Margin;
+        }
 				_view.AddSubview(view);
 			}
 			_items.Add(_currentItem);
 			return this; 
 		}
 
+    /// <summary>
+    /// Sets the current view to work with to the given one.
+    /// Note: The view has to have been attached previously using the 'Attach' method.
+    /// </summary>
+    /// <returns>ConstraintHelper</returns>
+    /// <param name="view">View.</param>
 		public ConstraintHelper WorkWith(UIView view)
 		{
 			_currentItem = _items.FirstOrDefault(items => (items.View == view));
@@ -56,6 +75,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Removes the currently selected view and all related constraints from the parent view.
+    /// </summary>
+    /// <returns>ConstraintHelper</returns>
 		public ConstraintHelper Remove()
 		{
 			if (_currentItem == null) { throw new UnattachedViewException(); }
@@ -70,6 +93,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Removes all views and related constraints added through the ConstraintHelper object.
+    /// </summary>
+    /// <returns>ConstraintHelper</returns>
 		public ConstraintHelper RemoveAll()
 		{
 			foreach (var item in _items) {
@@ -85,6 +112,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Returns the container object that is used for the current view.
+    /// </summary>
+    /// <returns>ConstraintHelper</returns>
 		public ConstraintContainer GetContainer()
 		{
 			return _currentItem;
@@ -95,6 +126,13 @@ namespace SR.MonoTouchHelpers
 
 		#region Positioning Top functionalities
 
+    /// <summary>
+    /// Sets the top constraint of the current view to the parents top.
+    /// If there is a view that is stacked to the top, 
+    /// this method will behave exactly like BelowOf (the stacked view)
+    /// </summary>
+    /// <param name="margin">Margin.</param>
+    /// <returns>ConstraintHelper</returns>
 		public ConstraintHelper Top(float? margin = null) 
 		{
 			if (_currentItem == null) { throw new UnattachedViewException(); }
@@ -102,19 +140,27 @@ namespace SR.MonoTouchHelpers
 				BelowOf(_lastTop, margin);
 			} else {
 				if (margin != null) {
-					_currentItem.MarginTop = (float)margin;
+          _currentItem.Margin.Top = (float)margin;
 				}
 				_currentItem.ConstraintTop = NSLayoutConstraint.Create(
 					_currentItem.View, NSLayoutAttribute.Top, 
 					NSLayoutRelation.Equal,
 					_view, NSLayoutAttribute.Top, 
-					1f, _currentItem.MarginTop
+					1f, _currentItem.Margin.Top
 				);
 				_view.AddConstraint(_currentItem.ConstraintTop);
 			}
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the top constraint of the view to the bottom of the given view.
+    /// Note: The view given has to have been attached using the Attach method.
+    /// Any margin of the given view and the current view will be added (no margin collapse).
+    /// </summary>
+    /// <returns>ConstraintHelper</returns>
+    /// <param name="view">View.</param>
+    /// <param name="margin">Margin.</param>
 		public ConstraintHelper BelowOf(UIView view, float? margin = null)
 		{
 			ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
@@ -122,16 +168,24 @@ namespace SR.MonoTouchHelpers
 			return BelowOf(item, margin);
 		}
 
+
+    /// <summary>
+    /// Sets the top constraint of the view to the bottom of the view within the given constraint container.
+    /// Any margin of the given view and the current view will be added (no margin collapse).
+    /// </summary>
+    /// <returns>ConstraintHelper</returns>
+    /// <param name="container">Container.</param>
+    /// <param name="margin">Margin.</param>
 		public ConstraintHelper BelowOf(ConstraintContainer container, float? margin = null)
 		{
 			if (margin != null) {
-				_currentItem.MarginTop = (float)margin;
+				_currentItem.Margin.Top = (float)margin;
 			}
 			_currentItem.ConstraintTop = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.Top, 
 				NSLayoutRelation.Equal,
 				container.View, NSLayoutAttribute.Bottom, 
-				1f, _currentItem.MarginTop + container.MarginBottom
+        1f, _currentItem.Margin.Top + container.Margin.Bottom
 			);
 			_view.AddConstraint(_currentItem.ConstraintTop);
 			return this;
@@ -142,25 +196,41 @@ namespace SR.MonoTouchHelpers
 
 		#region Positioning Bottom functionalities
 
+
+    /// <summary>
+    /// Sets the bottom constraint of the current view to the parents bottom.
+    /// If there is a view that is stacked to the bottom, 
+    /// this method will behave exactly like AboveOf (the stacked view)
+    /// </summary>
+    /// <returns>ConstraintHelper</returns>
+    /// <param name="margin">Margin.</param>
 		public ConstraintHelper Bottom(float? margin = null)
 		{
 			if (_lastBottom != null) {
 				this.AboveOf(_lastBottom, margin);
 			} else {
 				if (margin != null) {
-					_currentItem.MarginBottom = (float)margin;
+          _currentItem.Margin.Bottom = (float)margin;
 				}
 				_currentItem.ConstraintBottom = NSLayoutConstraint.Create(
 					_currentItem.View, NSLayoutAttribute.Bottom, 
 					NSLayoutRelation.Equal,
 					_view, NSLayoutAttribute.Bottom, 
-					1f, 0 - _currentItem.MarginBottom
+          1f, 0 - _currentItem.Margin.Bottom
 				);
 				_view.AddConstraint(_currentItem.ConstraintBottom);
 			}
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the bottom constraint of the current view to the top of the given view.
+    /// Note: The view given has to have been attached using the Attach method.
+    /// Any margin of the given view and the current view will be added (no margin collapse).
+    /// </summary>
+    /// <returns>ConstraintHelper</returns>
+    /// <param name="view">View.</param>
+    /// <param name="margin">Margin.</param>
 		public ConstraintHelper AboveOf(UIView view, float? margin = null)
 		{
 			ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
@@ -168,16 +238,23 @@ namespace SR.MonoTouchHelpers
 			return AboveOf(item, margin);	
 		}
 
+    /// <summary>
+    /// Sets the bottom constraint of the current view to the bottom of the view within the given constraint container.
+    /// Any margin of the given view and the current view will be added (no margin collapse).
+    /// </summary>
+    /// <returns>ConstraintHelper</returns>
+    /// <param name="container">Container.</param>
+    /// <param name="margin">Margin.</param>
 		public ConstraintHelper AboveOf(ConstraintContainer container, float? margin = null)
 		{
 			if (margin != null) {
-				_currentItem.MarginBottom = (float)margin;
+        _currentItem.Margin.Bottom = (float)margin;
 			}
 			_currentItem.ConstraintBottom = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.Bottom, 
 				NSLayoutRelation.Equal,
 				container.View, NSLayoutAttribute.Top, 
-				1f, 0 - (_currentItem.MarginBottom + container.MarginTop)
+        1f, 0 - (_currentItem.Margin.Bottom + container.Margin.Top)
 			);
 			_view.AddConstraint(_currentItem.ConstraintBottom);
 			return this;
@@ -188,25 +265,39 @@ namespace SR.MonoTouchHelpers
 
 		#region Positioning Right functionalities
 
+    /// <summary>
+    /// Sets the right constraint of the current view to the parents right.
+    /// If there is a view that is stacked to the right, 
+    /// this method will behave exactly like RightOf (the stacked view)
+    /// </summary>
+    /// <param name="margin">Margin.</param>
 		public ConstraintHelper Right(float? margin = null) 
 		{
 			if (_lastRight != null) {
 				this.AboveOf(_lastRight, margin);
 			} else {
 				if (margin != null) {
-					_currentItem.MarginRight = (float)margin;
+          _currentItem.Margin.Right = (float)margin;
 				}
 				_currentItem.ConstraintRight = NSLayoutConstraint.Create(
 					_currentItem.View, NSLayoutAttribute.Right, 
 					NSLayoutRelation.Equal, 
 					_view, NSLayoutAttribute.Right, 
-					1f, 0 - _currentItem.MarginRight
+          1f, 0 - _currentItem.Margin.Right
 				);
 				_view.AddConstraint(_currentItem.ConstraintRight);
 			}
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the right constraint of the current view to the left of the given view.
+    /// Note: The view given has to have been attached using the Attach method.
+    /// Any margin of the given view and the current view will be added (no margin collapse).
+    /// </summary>
+    /// <returns>The of.</returns>
+    /// <param name="view">View.</param>
+    /// <param name="margin">Margin.</param>
 		public ConstraintHelper RightOf(UIView view, float? margin = null) 
 		{
 			ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
@@ -214,16 +305,24 @@ namespace SR.MonoTouchHelpers
 			return RightOf(item, margin);	
 		}
 
+
+    /// <summary>
+    /// Sets the right constraint of the current view to the left of the view within the given constraint container.
+    /// Any margin of the given view and the current view will be added (no margin collapse).
+    /// </summary>
+    /// <returns>The of.</returns>
+    /// <param name="container">Container.</param>
+    /// <param name="margin">Margin.</param>
 		public ConstraintHelper RightOf(ConstraintContainer container, float? margin = null)
 		{
 			if (margin != null) {
-				_currentItem.MarginRight = (float)margin;
+        _currentItem.Margin.Right = (float)margin;
 			}
 			_currentItem.ConstraintRight = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.Right, 
 				NSLayoutRelation.Equal,
 				container.View, NSLayoutAttribute.Left, 
-				1f, 0 - (_currentItem.MarginRight + container.MarginLeft)
+        1f, 0 - (_currentItem.Margin.Right + container.Margin.Left)
 			);
 			_view.AddConstraint(_currentItem.ConstraintRight);
 			return this;
@@ -234,25 +333,39 @@ namespace SR.MonoTouchHelpers
 
 		#region Positioning Left functionalities
 
+    /// <summary>
+    /// Sets the left constraint of the current view to the parents left.
+    /// If there is a view that is stacked to the left, 
+    /// this method will behave exactly like LeftOf (the stacked view)
+    /// </summary>
+    /// <param name="margin">Margin.</param>
 		public ConstraintHelper Left(float? margin = null)
 		{
 			if (_lastLeft != null) {
 				this.LeftOf(_lastLeft, margin);
 			} else {
 				if (margin != null) {
-					_currentItem.MarginLeft = (float)margin;
+          _currentItem.Margin.Left = (float)margin;
 				}
 				_currentItem.ConstraintLeft = NSLayoutConstraint.Create(
 					_currentItem.View, NSLayoutAttribute.Left, 
 					NSLayoutRelation.Equal, 
 					_view, NSLayoutAttribute.Left, 
-					1f, _currentItem.MarginLeft
+          1f, _currentItem.Margin.Left
 				);
 				_view.AddConstraint(_currentItem.ConstraintLeft);
 			}
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the left constraint of the current view to the right of the given view.
+    /// Note: The view given has to have been attached using the Attach method.
+    /// Any margin of the given view and the current view will be added (no margin collapse).
+    /// </summary>
+    /// <returns>The of.</returns>
+    /// <param name="view">View.</param>
+    /// <param name="margin">Margin.</param>
 		public ConstraintHelper LeftOf(UIView view, float? margin = null)
 		{
 			ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
@@ -260,16 +373,23 @@ namespace SR.MonoTouchHelpers
 			return LeftOf(item, margin);		
 		}
 
+    /// <summary>
+    /// Sets the left constraint of the current view to the right of the view within the given constraint container.
+    /// Any margin of the given view and the current view will be added (no margin collapse).
+    /// </summary>
+    /// <returns>The of.</returns>
+    /// <param name="container">Container.</param>
+    /// <param name="margin">Margin.</param>
 		public ConstraintHelper LeftOf(ConstraintContainer container, float? margin = null)
 		{
 			if (margin != null) {
-				_currentItem.MarginLeft = (float)margin;
+        _currentItem.Margin.Left = (float)margin;
 			}
 			_currentItem.ConstraintLeft = NSLayoutConstraint.Create(
 				_currentItem.View, NSLayoutAttribute.Left, 
 				NSLayoutRelation.Equal,
 				container.View, NSLayoutAttribute.Right, 
-				1f, _currentItem.MarginLeft + container.MarginRight
+        1f, _currentItem.Margin.Left + container.Margin.Right
 			);
 			_view.AddConstraint(_currentItem.ConstraintLeft);
 			return this;
@@ -280,6 +400,10 @@ namespace SR.MonoTouchHelpers
 
 		#region Positioning Width functionalities
 
+    /// <summary>
+    /// Sets a width constraint for the current view to be exact given value
+    /// </summary>
+    /// <param name="width">Width.</param>
 		public ConstraintHelper Width(float width) 
 		{
 			_currentItem.ConstraintWidth = NSLayoutConstraint.Create(
@@ -292,6 +416,15 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the width constraint of the current view to the width of the given view.
+    /// Note: The view given has to have been attached using the Attach method.
+    /// You can optionally multiply the views width and/or modifie it.
+    /// </summary>
+    /// <returns>The of.</returns>
+    /// <param name="view">View.</param>
+    /// <param name="multiplier">Multiplier.</param>
+    /// <param name="modifier">Modifier.</param>
 		public ConstraintHelper WidthOf(UIView view, float multiplier = 1, float modifier = 0)
 		{
 			ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
@@ -299,6 +432,16 @@ namespace SR.MonoTouchHelpers
 			return WidthOf(item, multiplier);	
 		}
 
+
+    /// <summary>
+    /// Sets the width constraint of the current view to the width of the given view.
+    /// Note: The view given has to have been attached using the Attach method.
+    /// You can optionally multiply the views width and/or modifie it.
+    /// </summary>
+    /// <returns>The of.</returns>
+    /// <param name="container">Container.</param>
+    /// <param name="multiplier">Multiplier.</param>
+    /// <param name="modifier">Modifier.</param>
 		public ConstraintHelper WidthOf(ConstraintContainer container, float multiplier = 1, float modifier = 0)
 		{
 			_currentItem.ConstraintWidth = NSLayoutConstraint.Create(
@@ -530,28 +673,30 @@ namespace SR.MonoTouchHelpers
 		public ConstraintHelper SetMargin(float top, float right, float bottom, float left)
 		{
 			if (_currentItem == null) { throw new UnattachedViewException(); }
-			_currentItem.MarginTop = top;
-			_currentItem.MarginRight = right;
-			_currentItem.MarginBottom = bottom;
-			_currentItem.MarginLeft = left;
+      _currentItem.Margin = new ConstraintMargin(top, right, bottom, left);
 			return this;
 		}
 
 		public ConstraintHelper SetMargin(float topAndBottom, float rightAndLeft)
 		{
 			if (_currentItem == null) { throw new UnattachedViewException(); }
-			_currentItem.MarginTop = _currentItem.MarginBottom = topAndBottom;
-			_currentItem.MarginRight = _currentItem.MarginLeft = rightAndLeft;
+      _currentItem.Margin = new ConstraintMargin(topAndBottom, rightAndLeft);
 			return this;
 		}
 
 		public ConstraintHelper SetMargin(float allSides)
 		{
 			if (_currentItem == null) { throw new UnattachedViewException(); }
-			_currentItem.MarginTop = _currentItem.MarginRight = 
-			_currentItem.MarginBottom = _currentItem.MarginLeft = allSides;
+      _currentItem.Margin = new ConstraintMargin(allSides);
 			return this;
 		}
+
+    public ConstraintHelper SetMargin(ConstraintMargin marginObject)
+    {
+      if (_currentItem == null) { throw new UnattachedViewException(); }
+      _currentItem.Margin = marginObject;
+      return this;
+    }
 
 		#endregion
 
