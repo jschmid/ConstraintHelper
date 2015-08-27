@@ -38,7 +38,7 @@ namespace ConstraintHelperExample.ViewControllers
 					.StackTop() 
 
 				.Attach(box2)
-					.SetMargin(10f, 10f, 10f, 10f) // setting all margin at once
+					.SetMargin(10f) // setting all margin at once
 					.Left() // the element still has to be positioned
 					.Right()
 					.Top()

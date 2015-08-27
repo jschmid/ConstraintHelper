@@ -20,6 +20,7 @@ namespace SR.MonoTouchHelpers
 
 		List<ConstraintContainer> _items;
 
+    // the view to which to set the constraints
 		ConstraintContainer _currentItem;
 
 		#endregion
@@ -207,7 +208,7 @@ namespace SR.MonoTouchHelpers
 		public ConstraintHelper Bottom(float? margin = null)
 		{
 			if (_lastBottom != null) {
-				this.AboveOf(_lastBottom, margin);
+				AboveOf(_lastBottom, margin);
 			} else {
 				if (margin != null) {
           _currentItem.Margin.Bottom = (float)margin;
@@ -274,7 +275,7 @@ namespace SR.MonoTouchHelpers
 		public ConstraintHelper Right(float? margin = null) 
 		{
 			if (_lastRight != null) {
-				this.AboveOf(_lastRight, margin);
+				AboveOf(_lastRight, margin);
 			} else {
 				if (margin != null) {
           _currentItem.Margin.Right = (float)margin;
@@ -342,7 +343,7 @@ namespace SR.MonoTouchHelpers
 		public ConstraintHelper Left(float? margin = null)
 		{
 			if (_lastLeft != null) {
-				this.LeftOf(_lastLeft, margin);
+				LeftOf(_lastLeft, margin);
 			} else {
 				if (margin != null) {
           _currentItem.Margin.Left = (float)margin;
@@ -419,7 +420,7 @@ namespace SR.MonoTouchHelpers
     /// <summary>
     /// Sets the width constraint of the current view to the width of the given view.
     /// Note: The view given has to have been attached using the Attach method.
-    /// You can optionally multiply the views width and/or modifie it.
+    /// You can optionally multiply the views width and/or modify it.
     /// </summary>
     /// <returns>The of.</returns>
     /// <param name="view">View.</param>
@@ -429,14 +430,14 @@ namespace SR.MonoTouchHelpers
 		{
 			ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
 			if (item == null) { throw new UnattachedViewException(); }
-			return WidthOf(item, multiplier);	
+      return WidthOf(item, multiplier, modifier);	
 		}
 
 
     /// <summary>
     /// Sets the width constraint of the current view to the width of the given view.
     /// Note: The view given has to have been attached using the Attach method.
-    /// You can optionally multiply the views width and/or modifie it.
+    /// You can optionally multiply the views width and/or modify it.
     /// </summary>
     /// <returns>The of.</returns>
     /// <param name="container">Container.</param>
@@ -454,6 +455,13 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Sets a width constraint between the current view and its parent.
+    /// You can optionally multiply the views width and/or modify it.
+    /// </summary>
+    /// <returns>The of parent.</returns>
+    /// <param name="multiplier">Multiplier.</param>
+    /// <param name="modifier">Modifier.</param>
 		public ConstraintHelper WidthOfParent(float multiplier = 1, float modifier = 0)
 		{
 			_currentItem.ConstraintWidth = NSLayoutConstraint.Create(
@@ -466,6 +474,13 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Sets a constraint on the current view from its width to its height.
+    /// You can optionally multiply the views width and/or modify it.
+    /// </summary>
+    /// <returns>The from height.</returns>
+    /// <param name="multiplier">Multiplier.</param>
+    /// <param name="modifier">Modifier.</param>
 		public ConstraintHelper WidthFromHeight(float multiplier = 1, float modifier = 0)
 		{
 			_currentItem.ConstraintWidth = NSLayoutConstraint.Create(
@@ -483,6 +498,10 @@ namespace SR.MonoTouchHelpers
 
 		#region Positioning Height functionalities
 
+    /// <summary>
+    /// Sets a height constraint for the current view to be exact given value
+    /// </summary>
+    /// <param name="height">Height.</param>
 		public ConstraintHelper Height(float height) 
 		{
 			_currentItem.ConstraintHeight = NSLayoutConstraint.Create(
@@ -495,13 +514,31 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the height constraint of the current view to the height of the given view.
+    /// Note: The view given has to have been attached using the Attach method.
+    /// You can optionally multiply the views height and/or modify it.
+    /// </summary>
+    /// <returns>The of.</returns>
+    /// <param name="view">View.</param>
+    /// <param name="multiplier">Multiplier.</param>
+    /// <param name="modifier">Modifier.</param>
 		public ConstraintHelper HeightOf(UIView view, float multiplier = 1, float modifier = 0)
 		{
 			ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
 			if (item == null) { throw new UnattachedViewException(); }
-			return HeightOf(item, multiplier);
+      return HeightOf(item, multiplier, modifier);
 		}
 
+    /// <summary>
+    /// Sets the height constraint of the current view to the height of the given view.
+    /// Note: The view given has to have been attached using the Attach method.
+    /// You can optionally multiply the views height and/or modify it.
+    /// </summary>
+    /// <returns>The of.</returns>
+    /// <param name="container">Container.</param>
+    /// <param name="multiplier">Multiplier.</param>
+    /// <param name="modifier">Modifier.</param>
 		public ConstraintHelper HeightOf(ConstraintContainer container, float multiplier = 1, float modifier = 0)
 		{
 			_currentItem.ConstraintHeight = NSLayoutConstraint.Create(
@@ -514,6 +551,13 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Sets a height constraint between the current view and its parent.
+    /// You can optionally multiply the views height and/or modify it.
+    /// </summary>
+    /// <returns>The of parent.</returns>
+    /// <param name="multiplier">Multiplier.</param>
+    /// <param name="modifier">Modifier.</param>
 		public ConstraintHelper HeightOfParent(float multiplier = 1, float modifier = 0)
 		{
 			_currentItem.ConstraintHeight = NSLayoutConstraint.Create(
@@ -526,6 +570,13 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Sets a constraint on the current view from its height to its width.
+    /// You can optionally multiply the views height and/or modify it.
+    /// </summary>
+    /// <returns>The from height.</returns>
+    /// <param name="multiplier">Multiplier.</param>
+    /// <param name="modifier">Modifier.</param>
 		public ConstraintHelper HeightFromWidth(float multiplier = 1, float modifier = 0) 
 		{
 			_currentItem.ConstraintHeight = NSLayoutConstraint.Create(
@@ -543,6 +594,11 @@ namespace SR.MonoTouchHelpers
 
 		#region Positioning XY functionalities
 
+    /// <summary>
+    /// Sets a constraint on the x axis between the current view and its parent
+    /// You can optionally modify the views constraint.
+    /// </summary>
+    /// <param name="modifier">Modifier.</param>
 		public ConstraintHelper Center(float modifier = 0)
 		{
 			_currentItem.ConstraintCenter = NSLayoutConstraint.Create(
@@ -555,6 +611,11 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Sets a constraint on the y axis between the current view and its parent
+    /// You can optionally modify the views constraint.
+    /// </summary>
+    /// <param name="modifier">Modifier.</param>
 		public ConstraintHelper Middle(float modifier = 0)
 		{
 			_currentItem.ConstraintMiddle = NSLayoutConstraint.Create(
@@ -572,7 +633,10 @@ namespace SR.MonoTouchHelpers
 
 		#region Constraint Removal functionalities
 
-
+    /// <summary>
+    /// Forces layouting/rendering of the constraints.
+    /// </summary>
+    /// <returns>The constraints.</returns>
 		public ConstraintHelper UpdateConstraints()
 		{
 			_view.LayoutIfNeeded();
@@ -582,6 +646,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Removes all constraints created for the current view.
+    /// </summary>
+    /// <returns>The all constraints.</returns>
 		public ConstraintHelper RemoveAllConstraints()
 		{
 			var constraints = _currentItem.GetAllConstraints();
@@ -592,6 +660,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Removes the top constraint of the current view.
+    /// </summary>
+    /// <returns>The top constraint.</returns>
 		public ConstraintHelper RemoveTopConstraint()
 		{
 			if(_currentItem.ConstraintTop != null) {
@@ -601,6 +673,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Removes the right constraint of the current view.
+    /// </summary>
+    /// <returns>The right constraint.</returns>
 		public ConstraintHelper RemoveRightConstraint()
 		{
 			if(_currentItem.ConstraintRight != null) {
@@ -610,7 +686,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
-
+    /// <summary>
+    /// Removes the bottom constraint of the current view.
+    /// </summary>
+    /// <returns>The bottom constraint.</returns>
 		public ConstraintHelper RemoveBottomConstraint()
 		{
 			if(_currentItem.ConstraintBottom != null) {
@@ -620,7 +699,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
-
+    /// <summary>
+    /// Removes the left constraint of the current view.
+    /// </summary>
+    /// <returns>The left constraint.</returns>
 		public ConstraintHelper RemoveLeftConstraint()
 		{
 			if(_currentItem.ConstraintLeft != null) {
@@ -630,6 +712,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Removes the center constraint of the current view.
+    /// </summary>
+    /// <returns>The center constraint.</returns>
 		public ConstraintHelper RemoveCenterConstraint()
 		{
 			if(_currentItem.ConstraintCenter != null) {
@@ -639,6 +725,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Removes the middle constraint of the current view.
+    /// </summary>
+    /// <returns>The middle constraint.</returns>
 		public ConstraintHelper RemoveMiddleConstraint()
 		{
 			if(_currentItem.ConstraintMiddle != null) {
@@ -648,6 +738,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Removes the height constraint of the current view.
+    /// </summary>
+    /// <returns>The height constraint.</returns>
 		public ConstraintHelper RemoveHeightConstraint()
 		{
 			if(_currentItem.ConstraintHeight != null) {
@@ -657,6 +751,10 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Removes the width constraint of the current view.
+    /// </summary>
+    /// <returns>The width constraint.</returns>
 		public ConstraintHelper RemoveWidthConstraint()
 		{
 			if(_currentItem.ConstraintWidth != null) {
@@ -670,6 +768,14 @@ namespace SR.MonoTouchHelpers
 
 		#region Margin functionalities
 
+    /// <summary>
+    /// Sets the margin for the current view.
+    /// </summary>
+    /// <returns>The margin.</returns>
+    /// <param name="top">Top.</param>
+    /// <param name="right">Right.</param>
+    /// <param name="bottom">Bottom.</param>
+    /// <param name="left">Left.</param>
 		public ConstraintHelper SetMargin(float top, float right, float bottom, float left)
 		{
 			if (_currentItem == null) { throw new UnattachedViewException(); }
@@ -677,6 +783,12 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the margin for the current view.
+    /// </summary>
+    /// <returns>The margin.</returns>
+    /// <param name="topAndBottom">Top and bottom.</param>
+    /// <param name="rightAndLeft">Right and left.</param>
 		public ConstraintHelper SetMargin(float topAndBottom, float rightAndLeft)
 		{
 			if (_currentItem == null) { throw new UnattachedViewException(); }
@@ -684,6 +796,11 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the margin for the current view.
+    /// </summary>
+    /// <returns>The margin.</returns>
+    /// <param name="allSides">All sides.</param>
 		public ConstraintHelper SetMargin(float allSides)
 		{
 			if (_currentItem == null) { throw new UnattachedViewException(); }
@@ -691,6 +808,11 @@ namespace SR.MonoTouchHelpers
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the margin for the current view using a ConstraintMargin object.
+    /// </summary>
+    /// <returns>The margin.</returns>
+    /// <param name="marginObject">Margin object.</param>
     public ConstraintHelper SetMargin(ConstraintMargin marginObject)
     {
       if (_currentItem == null) { throw new UnattachedViewException(); }
@@ -703,48 +825,84 @@ namespace SR.MonoTouchHelpers
 
 		#region Stacking functionalities
 
+    /// <summary>
+    /// Sets the current view to be the last view in the top stack.
+    /// Every following top constraint will be below this current view.
+    /// </summary>
+    /// <returns>The top.</returns>
 		public ConstraintHelper StackTop()
 		{
 			_lastTop = _currentItem;
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the current view to be the last view in the right stack.
+    /// Every following right constraint will be right of this current view.
+    /// </summary>
+    /// <returns>The top.</returns>
 		public ConstraintHelper StackRight()
 		{
 			_lastRight = _currentItem;
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the current view to be the last view in the bottom stack.
+    /// Every following bottom constraint will be above of this current view.
+    /// </summary>
+    /// <returns>The bottom.</returns>
 		public ConstraintHelper StackBottom()
 		{
 			_lastBottom = _currentItem;
 			return this;
 		}
 
+    /// <summary>
+    /// Sets the current view to be the last view in the left stack.
+    /// Every following left constraint will be left of this current view.
+    /// </summary>
+    /// <returns>The left.</returns>
 		public ConstraintHelper StackLeft()
 		{
 			_lastLeft = _currentItem;
 			return this;
 		}
 
+    /// <summary>
+    /// Resets the top stack.
+    /// </summary>
+    /// <returns>The top stack.</returns>
 		public ConstraintHelper ResetTopStack()
 		{
 			_lastTop = null;
 			return this;
 		}
 
+    /// <summary>
+    /// Resets the right stack.
+    /// </summary>
+    /// <returns>The right stack.</returns>
 		public ConstraintHelper ResetRightStack()
 		{
 			_lastRight = null;
 			return this;
 		}
 
+    /// <summary>
+    /// Resets the bottom stack.
+    /// </summary>
+    /// <returns>The bottom stack.</returns>
 		public ConstraintHelper ResetBottomStack()
 		{
 			_lastBottom = null;
 			return this;
 		}
 
+    /// <summary>
+    /// Resets the left stack.
+    /// </summary>
+    /// <returns>The left stack.</returns>
 		public ConstraintHelper ResetLeftStack()
 		{
 			_lastLeft = null;

@@ -16,7 +16,6 @@ namespace ConstraintHelperExample.ViewControllers
 			var box3 = new UIView { BackgroundColor = UIColor.FromRGB(240, 240, 240) };
 			var box4 = new UIView { BackgroundColor = UIColor.FromRGB(240, 240, 240) };
 
-
 			// set constraints as usual
 			ConstraintHelper
 
