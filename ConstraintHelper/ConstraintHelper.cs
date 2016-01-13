@@ -71,6 +71,7 @@ namespace SR.MonoTouchHelpers
     /// <param name="view">View.</param>
 		public ConstraintHelper WorkWith(UIView view)
 		{
+      if (_currentItem != null && _currentItem.View == view) { return this; }
 			_currentItem = _items.FirstOrDefault(items => (items.View == view));
 			if (_currentItem == null) { throw new UnattachedViewException(); }
 			return this;
