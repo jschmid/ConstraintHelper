@@ -276,7 +276,7 @@ namespace SR.MonoTouchHelpers
 		public ConstraintHelper Right(float? margin = null) 
 		{
 			if (_lastRight != null) {
-				AboveOf(_lastRight, margin);
+        RightOf(_lastRight, margin);
 			} else {
 				if (margin != null) {
           _currentItem.Margin.Right = (float)margin;
