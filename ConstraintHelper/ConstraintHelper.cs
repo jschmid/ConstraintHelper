@@ -128,11 +128,12 @@ namespace SR.MonoTouchHelpers
     /// this method will behave exactly like BelowOf (the stacked view)
     /// </summary>
     /// <param name="margin">Margin.</param>
+    /// <param name="priority">Constraint priority.</param>
     /// <returns>ConstraintHelper</returns>
-    public ConstraintHelper Top(float? margin = null) {
+    public ConstraintHelper Top(float? margin = null, float? priority = null) {
       if (_currentItem == null) { throw new UnattachedViewException(); }
       if (_lastTop != null) {
-        BelowOf(_lastTop, margin);
+        BelowOf(_lastTop, margin, priority);
       }
       else {
         if (margin != null) {
@@ -144,6 +145,9 @@ namespace SR.MonoTouchHelpers
           _view, NSLayoutAttribute.Top,
           1f, _currentItem.Margin.Top
         );
+        if (priority != null) {
+          _currentItem.ConstraintTop.Priority = (float)priority;
+        }
         _view.AddConstraint(_currentItem.ConstraintTop);
       }
       return this;
@@ -157,10 +161,11 @@ namespace SR.MonoTouchHelpers
     /// <returns>ConstraintHelper</returns>
     /// <param name="view">View.</param>
     /// <param name="margin">Margin.</param>
-		public ConstraintHelper BelowOf(UIView view, float? margin = null) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper BelowOf(UIView view, float? margin = null, float? priority = null) {
       ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
       if (item == null) { throw new UnattachedViewException(); }
-      return BelowOf(item, margin);
+      return BelowOf(item, margin, priority);
     }
 
 
@@ -171,7 +176,8 @@ namespace SR.MonoTouchHelpers
     /// <returns>ConstraintHelper</returns>
     /// <param name="container">Container.</param>
     /// <param name="margin">Margin.</param>
-		public ConstraintHelper BelowOf(ConstraintContainer container, float? margin = null) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper BelowOf(ConstraintContainer container, float? margin = null, float? priority = null) {
       if (margin != null) {
         _currentItem.Margin.Top = (float)margin;
       }
@@ -181,6 +187,9 @@ namespace SR.MonoTouchHelpers
         container.View, NSLayoutAttribute.Bottom,
             1f, _currentItem.Margin.Top + container.Margin.Bottom
       );
+      if (priority != null) {
+        _currentItem.ConstraintTop.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintTop);
       return this;
     }
@@ -198,9 +207,10 @@ namespace SR.MonoTouchHelpers
     /// </summary>
     /// <returns>ConstraintHelper</returns>
     /// <param name="margin">Margin.</param>
-    public ConstraintHelper Bottom(float? margin = null) {
+    /// <param name="priority">Constraint priority.</param>
+    public ConstraintHelper Bottom(float? margin = null, float? priority = null) {
       if (_lastBottom != null) {
-        AboveOf(_lastBottom, margin);
+        AboveOf(_lastBottom, margin, priority);
       }
       else {
         if (margin != null) {
@@ -212,6 +222,9 @@ namespace SR.MonoTouchHelpers
           _view, NSLayoutAttribute.Bottom,
           1f, 0 - _currentItem.Margin.Bottom
         );
+        if (priority != null) {
+          _currentItem.ConstraintBottom.Priority = (float)priority;
+        }
         _view.AddConstraint(_currentItem.ConstraintBottom);
       }
       return this;
@@ -225,10 +238,11 @@ namespace SR.MonoTouchHelpers
     /// <returns>ConstraintHelper</returns>
     /// <param name="view">View.</param>
     /// <param name="margin">Margin.</param>
-		public ConstraintHelper AboveOf(UIView view, float? margin = null) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper AboveOf(UIView view, float? margin = null, float? priority = null) {
       ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
       if (item == null) { throw new UnattachedViewException(); }
-      return AboveOf(item, margin);
+      return AboveOf(item, margin, priority);
     }
 
     /// <summary>
@@ -238,7 +252,8 @@ namespace SR.MonoTouchHelpers
     /// <returns>ConstraintHelper</returns>
     /// <param name="container">Container.</param>
     /// <param name="margin">Margin.</param>
-		public ConstraintHelper AboveOf(ConstraintContainer container, float? margin = null) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper AboveOf(ConstraintContainer container, float? margin = null, float? priority = null) {
       if (margin != null) {
         _currentItem.Margin.Bottom = (float)margin;
       }
@@ -248,6 +263,9 @@ namespace SR.MonoTouchHelpers
         container.View, NSLayoutAttribute.Top,
         1f, 0 - (_currentItem.Margin.Bottom + container.Margin.Top)
       );
+      if (priority != null) {
+        _currentItem.ConstraintBottom.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintBottom);
       return this;
     }
@@ -263,9 +281,10 @@ namespace SR.MonoTouchHelpers
     /// this method will behave exactly like RightOf (the stacked view)
     /// </summary>
     /// <param name="margin">Margin.</param>
-    public ConstraintHelper Right(float? margin = null) {
+    /// <param name="priority">Constraint priority.</param>
+    public ConstraintHelper Right(float? margin = null, float? priority = null) {
       if (_lastRight != null) {
-        RightOf(_lastRight, margin);
+        RightOf(_lastRight, margin, priority);
       }
       else {
         if (margin != null) {
@@ -277,6 +296,9 @@ namespace SR.MonoTouchHelpers
           _view, NSLayoutAttribute.Right,
           1f, 0 - _currentItem.Margin.Right
         );
+        if (priority != null) {
+          _currentItem.ConstraintRight.Priority = (float)priority;
+        }
         _view.AddConstraint(_currentItem.ConstraintRight);
       }
       return this;
@@ -290,10 +312,11 @@ namespace SR.MonoTouchHelpers
     /// <returns>The of.</returns>
     /// <param name="view">View.</param>
     /// <param name="margin">Margin.</param>
-		public ConstraintHelper RightOf(UIView view, float? margin = null) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper RightOf(UIView view, float? margin = null, float? priority = null) {
       ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
       if (item == null) { throw new UnattachedViewException(); }
-      return RightOf(item, margin);
+      return RightOf(item, margin, priority);
     }
 
 
@@ -304,7 +327,8 @@ namespace SR.MonoTouchHelpers
     /// <returns>The of.</returns>
     /// <param name="container">Container.</param>
     /// <param name="margin">Margin.</param>
-		public ConstraintHelper RightOf(ConstraintContainer container, float? margin = null) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper RightOf(ConstraintContainer container, float? margin = null, float? priority = null) {
       if (margin != null) {
         _currentItem.Margin.Right = (float)margin;
       }
@@ -314,6 +338,9 @@ namespace SR.MonoTouchHelpers
         container.View, NSLayoutAttribute.Left,
         1f, 0 - (_currentItem.Margin.Right + container.Margin.Left)
       );
+      if (priority != null) {
+        _currentItem.ConstraintRight.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintRight);
       return this;
     }
@@ -329,9 +356,10 @@ namespace SR.MonoTouchHelpers
     /// this method will behave exactly like LeftOf (the stacked view)
     /// </summary>
     /// <param name="margin">Margin.</param>
-    public ConstraintHelper Left(float? margin = null) {
+    /// <param name="priority">Constraint priority.</param>
+    public ConstraintHelper Left(float? margin = null, float? priority = null) {
       if (_lastLeft != null) {
-        LeftOf(_lastLeft, margin);
+        LeftOf(_lastLeft, margin, priority);
       }
       else {
         if (margin != null) {
@@ -343,6 +371,9 @@ namespace SR.MonoTouchHelpers
           _view, NSLayoutAttribute.Left,
           1f, _currentItem.Margin.Left
         );
+        if (priority != null) {
+          _currentItem.ConstraintLeft.Priority = (float)priority;
+        }
         _view.AddConstraint(_currentItem.ConstraintLeft);
       }
       return this;
@@ -356,10 +387,11 @@ namespace SR.MonoTouchHelpers
     /// <returns>The of.</returns>
     /// <param name="view">View.</param>
     /// <param name="margin">Margin.</param>
-		public ConstraintHelper LeftOf(UIView view, float? margin = null) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper LeftOf(UIView view, float? margin = null, float? priority = null) {
       ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
       if (item == null) { throw new UnattachedViewException(); }
-      return LeftOf(item, margin);
+      return LeftOf(item, margin, priority);
     }
 
     /// <summary>
@@ -369,7 +401,8 @@ namespace SR.MonoTouchHelpers
     /// <returns>The of.</returns>
     /// <param name="container">Container.</param>
     /// <param name="margin">Margin.</param>
-		public ConstraintHelper LeftOf(ConstraintContainer container, float? margin = null) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper LeftOf(ConstraintContainer container, float? margin = null, float? priority = null) {
       if (margin != null) {
         _currentItem.Margin.Left = (float)margin;
       }
@@ -379,6 +412,9 @@ namespace SR.MonoTouchHelpers
         container.View, NSLayoutAttribute.Right,
         1f, _currentItem.Margin.Left + container.Margin.Right
       );
+      if (priority != null) {
+        _currentItem.ConstraintLeft.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintLeft);
       return this;
     }
@@ -392,13 +428,17 @@ namespace SR.MonoTouchHelpers
     /// Sets a width constraint for the current view to be exact given value
     /// </summary>
     /// <param name="width">Width.</param>
-    public ConstraintHelper Width(float width) {
+    /// <param name="priority">Constraint priority.</param>
+    public ConstraintHelper Width(float width, float? priority = null) {
       _currentItem.ConstraintWidth = NSLayoutConstraint.Create(
         _currentItem.View, NSLayoutAttribute.Width,
         NSLayoutRelation.Equal,
         null, NSLayoutAttribute.Width,
         0f, width
       );
+      if (priority != null) {
+        _currentItem.ConstraintWidth.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintWidth);
       return this;
     }
@@ -412,10 +452,11 @@ namespace SR.MonoTouchHelpers
     /// <param name="view">View.</param>
     /// <param name="multiplier">Multiplier.</param>
     /// <param name="modifier">Modifier.</param>
-		public ConstraintHelper WidthOf(UIView view, float multiplier = 1, float modifier = 0) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper WidthOf(UIView view, float multiplier = 1, float modifier = 0, float? priority = null) {
       ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
       if (item == null) { throw new UnattachedViewException(); }
-      return WidthOf(item, multiplier, modifier);
+      return WidthOf(item, multiplier, modifier, priority);
     }
 
 
@@ -428,13 +469,17 @@ namespace SR.MonoTouchHelpers
     /// <param name="container">Container.</param>
     /// <param name="multiplier">Multiplier.</param>
     /// <param name="modifier">Modifier.</param>
-		public ConstraintHelper WidthOf(ConstraintContainer container, float multiplier = 1, float modifier = 0) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper WidthOf(ConstraintContainer container, float multiplier = 1, float modifier = 0, float? priority = null) {
       _currentItem.ConstraintWidth = NSLayoutConstraint.Create(
         _currentItem.View, NSLayoutAttribute.Width,
         NSLayoutRelation.Equal,
         container.View, NSLayoutAttribute.Width,
         multiplier, modifier
       );
+      if (priority != null) {
+        _currentItem.ConstraintWidth.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintWidth);
       return this;
     }
@@ -446,13 +491,17 @@ namespace SR.MonoTouchHelpers
     /// <returns>The of parent.</returns>
     /// <param name="multiplier">Multiplier.</param>
     /// <param name="modifier">Modifier.</param>
-		public ConstraintHelper WidthOfParent(float multiplier = 1, float modifier = 0) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper WidthOfParent(float multiplier = 1, float modifier = 0, float? priority = null) {
       _currentItem.ConstraintWidth = NSLayoutConstraint.Create(
         _currentItem.View, NSLayoutAttribute.Width,
         NSLayoutRelation.Equal,
         _view, NSLayoutAttribute.Width,
         multiplier, modifier
       );
+      if (priority != null) {
+        _currentItem.ConstraintWidth.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintWidth);
       return this;
     }
@@ -464,13 +513,17 @@ namespace SR.MonoTouchHelpers
     /// <returns>The from height.</returns>
     /// <param name="multiplier">Multiplier.</param>
     /// <param name="modifier">Modifier.</param>
-		public ConstraintHelper WidthFromHeight(float multiplier = 1, float modifier = 0) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper WidthFromHeight(float multiplier = 1, float modifier = 0, float? priority = null) {
       _currentItem.ConstraintWidth = NSLayoutConstraint.Create(
         _currentItem.View, NSLayoutAttribute.Width,
         NSLayoutRelation.Equal,
         _currentItem.View, NSLayoutAttribute.Height,
         multiplier, modifier
       );
+      if (priority != null) {
+        _currentItem.ConstraintWidth.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintWidth);
       return this;
     }
@@ -484,13 +537,17 @@ namespace SR.MonoTouchHelpers
     /// Sets a height constraint for the current view to be exact given value
     /// </summary>
     /// <param name="height">Height.</param>
-    public ConstraintHelper Height(float height) {
+    /// <param name="priority">Constraint priority.</param>
+    public ConstraintHelper Height(float height, float? priority = null) {
       _currentItem.ConstraintHeight = NSLayoutConstraint.Create(
         _currentItem.View, NSLayoutAttribute.Height,
         NSLayoutRelation.Equal,
         null, NSLayoutAttribute.Height,
         0f, height
       );
+      if (priority != null) {
+        _currentItem.ConstraintHeight.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintHeight);
       return this;
     }
@@ -504,10 +561,11 @@ namespace SR.MonoTouchHelpers
     /// <param name="view">View.</param>
     /// <param name="multiplier">Multiplier.</param>
     /// <param name="modifier">Modifier.</param>
-		public ConstraintHelper HeightOf(UIView view, float multiplier = 1, float modifier = 0) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper HeightOf(UIView view, float multiplier = 1, float modifier = 0, float? priority = null) {
       ConstraintContainer item = _items.FirstOrDefault(items => (items.View == view));
       if (item == null) { throw new UnattachedViewException(); }
-      return HeightOf(item, multiplier, modifier);
+      return HeightOf(item, multiplier, modifier, priority);
     }
 
     /// <summary>
@@ -519,13 +577,17 @@ namespace SR.MonoTouchHelpers
     /// <param name="container">Container.</param>
     /// <param name="multiplier">Multiplier.</param>
     /// <param name="modifier">Modifier.</param>
-		public ConstraintHelper HeightOf(ConstraintContainer container, float multiplier = 1, float modifier = 0) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper HeightOf(ConstraintContainer container, float multiplier = 1, float modifier = 0, float? priority = null) {
       _currentItem.ConstraintHeight = NSLayoutConstraint.Create(
         _currentItem.View, NSLayoutAttribute.Height,
         NSLayoutRelation.Equal,
         container.View, NSLayoutAttribute.Height,
         multiplier, modifier
       );
+      if (priority != null) {
+        _currentItem.ConstraintHeight.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintHeight);
       return this;
     }
@@ -537,13 +599,17 @@ namespace SR.MonoTouchHelpers
     /// <returns>The of parent.</returns>
     /// <param name="multiplier">Multiplier.</param>
     /// <param name="modifier">Modifier.</param>
-		public ConstraintHelper HeightOfParent(float multiplier = 1, float modifier = 0) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper HeightOfParent(float multiplier = 1, float modifier = 0, float? priority = null) {
       _currentItem.ConstraintHeight = NSLayoutConstraint.Create(
         _currentItem.View, NSLayoutAttribute.Height,
         NSLayoutRelation.Equal,
         _view, NSLayoutAttribute.Height,
         multiplier, modifier
       );
+      if (priority != null) {
+        _currentItem.ConstraintHeight.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintHeight);
       return this;
     }
@@ -555,13 +621,17 @@ namespace SR.MonoTouchHelpers
     /// <returns>The from height.</returns>
     /// <param name="multiplier">Multiplier.</param>
     /// <param name="modifier">Modifier.</param>
-		public ConstraintHelper HeightFromWidth(float multiplier = 1, float modifier = 0) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper HeightFromWidth(float multiplier = 1, float modifier = 0, float? priority = null) {
       _currentItem.ConstraintHeight = NSLayoutConstraint.Create(
         _currentItem.View, NSLayoutAttribute.Height,
         NSLayoutRelation.Equal,
         _currentItem.View, NSLayoutAttribute.Width,
         multiplier, modifier
       );
+      if (priority != null) {
+        _currentItem.ConstraintHeight.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintHeight);
       return this;
     }
@@ -576,13 +646,17 @@ namespace SR.MonoTouchHelpers
     /// You can optionally modify the views constraint.
     /// </summary>
     /// <param name="modifier">Modifier.</param>
-    public ConstraintHelper Center(float modifier = 0) {
+    /// <param name="priority">Constraint priority.</param>
+    public ConstraintHelper Center(float modifier = 0, float? priority = null) {
       _currentItem.ConstraintCenter = NSLayoutConstraint.Create(
         _currentItem.View, NSLayoutAttribute.CenterX,
         NSLayoutRelation.Equal,
         _view, NSLayoutAttribute.CenterX,
         1.0f, modifier
       );
+      if (priority != null) {
+        _currentItem.ConstraintCenter.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintCenter);
       return this;
     }
@@ -592,13 +666,17 @@ namespace SR.MonoTouchHelpers
     /// You can optionally modify the views constraint.
     /// </summary>
     /// <param name="modifier">Modifier.</param>
-		public ConstraintHelper Middle(float modifier = 0) {
+    /// <param name="priority">Constraint priority.</param>
+		public ConstraintHelper Middle(float modifier = 0, float? priority = null) {
       _currentItem.ConstraintMiddle = NSLayoutConstraint.Create(
         _currentItem.View, NSLayoutAttribute.CenterY,
         NSLayoutRelation.Equal,
         _view, NSLayoutAttribute.CenterY,
         1.0f, modifier
       );
+      if (priority != null) {
+        _currentItem.ConstraintMiddle.Priority = (float)priority;
+      }
       _view.AddConstraint(_currentItem.ConstraintMiddle);
       return this;
     }
