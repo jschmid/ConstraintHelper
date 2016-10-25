@@ -16,8 +16,7 @@ namespace SR.MonoTouchHelpers
     /// <param name="right">Right.</param>
     /// <param name="bottom">Bottom.</param>
     /// <param name="left">Left.</param>
-    public ConstraintMargin(float top, float right, float bottom, float left)
-    {
+    public ConstraintMargin(float top, float right, float bottom, float left) {
       Top = top;
       Right = right;
       Bottom = bottom;
@@ -29,8 +28,7 @@ namespace SR.MonoTouchHelpers
     /// </summary>
     /// <param name="topAndBottom">Top and bottom.</param>
     /// <param name="rightAndLeft">Right and left.</param>
-    public ConstraintMargin(float topAndBottom, float rightAndLeft)
-    {
+    public ConstraintMargin(float topAndBottom, float rightAndLeft) {
       Top = Bottom = topAndBottom;
       Right = Left = rightAndLeft;
     }
@@ -39,15 +37,14 @@ namespace SR.MonoTouchHelpers
     /// Initializes a new instance of the <see cref="SR.MonoTouchHelpers.ConstraintMargin"/> class with equal margin values.
     /// </summary>
     /// <param name="allSides">All sides.</param>
-    public ConstraintMargin(float allSides)
-    {
+    public ConstraintMargin(float allSides) {
       Top = Right = Bottom = Left = allSides;
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SR.MonoTouchHelpers.ConstraintMargin"/> class.
     /// </summary>
-    public ConstraintMargin() {}
+    public ConstraintMargin() { }
   }
 }
 
